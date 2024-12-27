@@ -30,7 +30,116 @@ public class DungeonGenerator : MonoBehaviour
         List<BoundsInt> rooms = GenerateRooms(dungeonBounds);
         HashSet<Vector2Int> floorPositions = CreateRooms(rooms);
 
+        List<Vector2Int> roomCenters = new List<Vector2Int>();
+
+        foreach (var room in rooms)
+        {
+            Vector3Int roomCenter = Vector3Int.RoundToInt(room.center);
+            roomCenters.Add((Vector2Int)roomCenter);
+        }
+
+        HashSet<Vector2Int> corridors = ConnectRooms(roomCenters);
+        floorPositions.UnionWith(corridors);
+
         dungeonVisualizer.PaintFloorTiles(floorPositions);
+    }
+
+    private HashSet<Vector2Int> ConnectRooms(List<Vector2Int> roomCenters)
+    {
+        HashSet<Vector2Int> corridors = new HashSet<Vector2Int>();
+
+        List<Vector2Int> connectedRooms = new List<Vector2Int>();
+        List<Vector2Int> unconnectedRooms = new List<Vector2Int>(roomCenters);
+
+        unconnectedRooms.Shuffle();
+
+        connectedRooms.Add(unconnectedRooms[0]);
+        unconnectedRooms.RemoveAt(0);
+
+        while(unconnectedRooms.Count > 0)
+        {
+            Vector2Int currentRoom = unconnectedRooms[0];
+            unconnectedRooms.RemoveAt(0);
+
+            Vector2Int closestConnectedRoom = FindClosestRoom(currentRoom, connectedRooms);
+            corridors.UnionWith(CreateCorridor(closestConnectedRoom, currentRoom));
+
+            int additionalConnections = Random.Range(0, 3);
+
+            if (additionalConnections > 0 && connectedRooms.Count > 1)
+            {
+                for (int i = 0; i < additionalConnections; i++)
+                {
+                    Vector2Int randomRoom = connectedRooms[Random.Range(0, connectedRooms.Count)];
+
+                    if (randomRoom != closestConnectedRoom)
+                    {
+                        corridors.UnionWith(CreateCorridor(randomRoom, currentRoom));
+                    }
+                }
+            }
+
+            connectedRooms.Add(currentRoom);
+        }
+
+        return corridors;
+    }
+
+    private HashSet<Vector2Int> CreateCorridor(Vector2Int closestConnectedRoom, Vector2Int destination)
+    {
+        HashSet<Vector2Int> corridor = new HashSet<Vector2Int>();
+
+        Vector2Int position = closestConnectedRoom;
+        corridor.Add(position);
+
+        while (position.y != destination.y)
+        {
+            if (destination.y > position.y)
+            {
+                position += Vector2Int.up;
+            }
+            else if (destination.y < position.y)
+            {
+                position += Vector2Int.down;
+            }
+
+            corridor.Add(position);
+        }
+
+        while (position.x != destination.x)
+        {
+            if (destination.x > position.x)
+            {
+                position += Vector2Int.right;
+            }
+            else if (destination.x < position.x)
+            {
+                position += Vector2Int.left;
+            }
+
+            corridor.Add(position);
+        }
+
+        return corridor;
+    }
+
+    private Vector2Int FindClosestRoom(Vector2Int currentRoom, List<Vector2Int> connectedRooms)
+    {
+        Vector2Int closestRoom = connectedRooms[0];
+        float shortestDistance = float.MaxValue;
+
+        foreach (var room in connectedRooms)
+        {
+            float distance = Vector2Int.Distance(currentRoom, room);
+
+            if (distance < shortestDistance)
+            {
+                closestRoom = room;
+                shortestDistance = distance;
+            }
+        }
+
+        return closestRoom;
     }
 
     private List<BoundsInt> GenerateRooms(BoundsInt dungeonBounds)
