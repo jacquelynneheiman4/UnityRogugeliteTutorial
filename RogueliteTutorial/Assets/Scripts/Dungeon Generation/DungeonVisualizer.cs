@@ -12,11 +12,20 @@ public class DungeonVisualizer : MonoBehaviour
     [Header("Floor Tiles")]
     public TileBase floorTile;
 
-    public void PaintFloorTiles(HashSet<Vector2Int> floorPositions)
+    [Header("Wall Generator")]
+    public WallGenerator wallGenerator;
+
+
+    public void PaintFloorTiles(HashSet<Vector2Int> floorPositions, bool generateWalls = true)
     {
         foreach (var position in floorPositions)
         {
             PaintTile(position, floorTilemap, floorTile);
+        }
+
+        if (generateWalls)
+        {
+            wallGenerator.GenerateWalls(floorPositions, this);
         }
     }
 
@@ -30,5 +39,10 @@ public class DungeonVisualizer : MonoBehaviour
     {
         floorTilemap.ClearAllTiles();
         wallTilemap.ClearAllTiles();
+    }
+
+    public void PaintWallTile(Vector2Int position, TileBase wallTile)
+    {
+        PaintTile(position, wallTilemap, wallTile);
     }
 }
