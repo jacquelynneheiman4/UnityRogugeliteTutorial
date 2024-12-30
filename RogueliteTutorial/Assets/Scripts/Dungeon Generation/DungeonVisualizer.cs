@@ -15,12 +15,32 @@ public class DungeonVisualizer : MonoBehaviour
     [Header("Wall Generator")]
     public WallGenerator wallGenerator;
 
+    public void PaintFloorTiles(char[,] dungeon, bool generateWalls = true)
+    {
+        for (int x = 0; x < dungeon.GetLength(0); x++)
+        {
+            for (int y = 0; y < dungeon.GetLength(1); y++)
+            {
+                if (dungeon[x, y] == '.')
+                {
+                    Vector3Int tilePosition = new Vector3Int(x, y, 0);
+                    PaintTile(tilePosition, floorTilemap, floorTile);
+                }
+                
+            }
+        }
+
+        if (generateWalls)
+        {
+            wallGenerator.GenerateWalls(dungeon, this);
+        }
+    }
 
     public void PaintFloorTiles(HashSet<Vector2Int> floorPositions, bool generateWalls = true)
     {
         foreach (var position in floorPositions)
         {
-            PaintTile(position, floorTilemap, floorTile);
+            PaintTile((Vector3Int)position, floorTilemap, floorTile);
         }
 
         if (generateWalls)
@@ -29,10 +49,9 @@ public class DungeonVisualizer : MonoBehaviour
         }
     }
 
-    private void PaintTile(Vector2Int position, Tilemap tilemap, TileBase tile)
+    private void PaintTile(Vector3Int position, Tilemap tilemap, TileBase tile)
     {
-        var tilePosition = tilemap.WorldToCell((Vector3Int)position);
-        tilemap.SetTile(tilePosition, tile);
+        tilemap.SetTile(position, tile);
     }
 
     public void Clear()
@@ -43,6 +62,6 @@ public class DungeonVisualizer : MonoBehaviour
 
     public void PaintWallTile(Vector2Int position, TileBase wallTile)
     {
-        PaintTile(position, wallTilemap, wallTile);
+        PaintTile((Vector3Int)position, wallTilemap, wallTile);
     }
 }

@@ -35,6 +35,52 @@ public class WallGenerator
         new Vector2Int(-1, 1),       // Top Left
     };
 
+    public void GenerateWalls(char[,] dungeon, DungeonVisualizer dungeonVisualizer)
+    {
+        int dungeonWidth = dungeon.GetLength(0);
+        int dungeonHeight = dungeon.GetLength(1);
+
+        for (int x = 0; x < dungeonWidth; x++)
+        {
+            for (int y = 0; y < dungeonHeight; y++)
+            {
+                string binaryTileType = "";
+
+                foreach (var direction in directions)
+                {
+                    int neighborX = x + direction.x;
+                    int neighborY = y + direction.y;
+
+                    bool isInBounds = (
+                        neighborX >= 0 &&
+                        neighborX < dungeonWidth &&
+                        neighborY >= 0 &&
+                        neighborY < dungeonHeight
+                    );
+
+                    if (isInBounds)
+                    {
+                        if (dungeon[neighborX, neighborY] == '.')
+                        {
+                            binaryTileType += "1";
+                        }
+                        else 
+                        {
+                            binaryTileType += "0";
+                        }
+                    }
+                }
+
+                if (dungeon[x, y] == '#')
+                {
+                    Vector3Int tilePosition = new Vector3Int(x, y, 0);
+                    TileBase tile = GetWallTile(binaryTileType);
+                    dungeonVisualizer.PaintWallTile((Vector2Int)tilePosition, tile);
+                }
+            }
+        }
+    }
+
     public void GenerateWalls(HashSet<Vector2Int> floorPositions, DungeonVisualizer dungeonVisualizer)
     {
         HashSet<Vector2Int> wallPositions = FindWallPositions(floorPositions);
