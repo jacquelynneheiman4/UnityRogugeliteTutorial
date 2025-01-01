@@ -11,20 +11,28 @@ public class DungeonVisualizer : MonoBehaviour
 
     [Header("Floor Tiles")]
     public TileBase floorTile;
+    public TileBase startTile;
 
     [Header("Wall Generator")]
     public WallGenerator wallGenerator;
 
-    public void PaintFloorTiles(char[,] dungeon, bool generateWalls = true)
+    public void PaintFloorTiles(Dungeon dungeon, bool generateWalls = true)
     {
-        for (int x = 0; x < dungeon.GetLength(0); x++)
+        char[,] dungeonLayout = dungeon.GetLayout();
+
+        for (int x = 0; x < dungeonLayout.GetLength(0); x++)
         {
-            for (int y = 0; y < dungeon.GetLength(1); y++)
+            for (int y = 0; y < dungeonLayout.GetLength(1); y++)
             {
-                if (dungeon[x, y] == '.')
+                Vector3Int tilePosition = new Vector3Int(x, y, 0);
+
+                if (dungeon.IsFloor(x, y))
                 {
-                    Vector3Int tilePosition = new Vector3Int(x, y, 0);
                     PaintTile(tilePosition, floorTilemap, floorTile);
+                }
+                else if (dungeon.IsStart(x, y))
+                {
+                    PaintTile(tilePosition, floorTilemap, startTile);
                 }
                 
             }

@@ -9,6 +9,12 @@ public class WallGenerator
     [Header("Default Tiles")]
     public TileBase defaultWallTile;
 
+    [Header("Exit Tiles")]
+    public TileBase topExitTile;
+    public TileBase rightExitTile;
+    public TileBase bottomExitTile;
+    public TileBase leftExitTile;
+
     [Header("Tiles")]
     public TileBase topWallTile;
     public TileBase leftWallTile;
@@ -56,7 +62,7 @@ public class WallGenerator
     public TileBase leftInteriorTTile;
     public TileBase rightInteriorTTile;
 
-    private List<Vector2Int> directions = new List<Vector2Int>
+    public List<Vector2Int> directions = new List<Vector2Int>
     {
         new Vector2Int(0, 1),       // Top
         new Vector2Int(1, 1),       // Top Right
@@ -68,10 +74,12 @@ public class WallGenerator
         new Vector2Int(-1, 1),       // Top Left
     };
 
-    public void GenerateWalls(char[,] dungeon, DungeonVisualizer dungeonVisualizer)
+    public void GenerateWalls(Dungeon dungeon, DungeonVisualizer dungeonVisualizer)
     {
-        int dungeonWidth = dungeon.GetLength(0);
-        int dungeonHeight = dungeon.GetLength(1);
+        char[,] dungeonLayout = dungeon.GetLayout();
+
+        int dungeonWidth = dungeonLayout.GetLength(0);
+        int dungeonHeight = dungeonLayout.GetLength(1);
 
         for (int x = 0; x < dungeonWidth; x++)
         {
@@ -93,7 +101,7 @@ public class WallGenerator
 
                     if (isInBounds)
                     {
-                        if (dungeon[neighborX, neighborY] == '.')
+                        if (dungeon.IsFloor(neighborX, neighborY))
                         {
                             binaryTileType += "1";
                         }
@@ -104,11 +112,17 @@ public class WallGenerator
                     }
                 }
 
-                if (dungeon[x, y] == '#')
+                Vector2Int tilePosition = new Vector2Int(x, y);
+
+                if (dungeon.IsWall(x, y))
                 {
-                    Vector3Int tilePosition = new Vector3Int(x, y, 0);
                     TileBase tile = GetWallTile(binaryTileType);
-                    dungeonVisualizer.PaintWallTile((Vector2Int)tilePosition, tile);
+                    dungeonVisualizer.PaintWallTile(tilePosition, tile);
+                }
+                else if (dungeon.IsExit(x, y))
+                {
+                    TileBase tile = GetExitTile(binaryTileType);
+                    dungeonVisualizer.PaintWallTile(tilePosition, tile);
                 }
             }
         }
@@ -143,6 +157,30 @@ public class WallGenerator
             TileBase wallTile = GetWallTile(binaryTileType);
             dungeonVisualizer.PaintWallTile(position, wallTile);
         }
+    }
+
+    private TileBase GetExitTile(string binaryTileType)
+    {
+        int tileType = Convert.ToInt32(binaryTileType, 2);
+
+        if (ExitTypesHelper.topExit.Contains(tileType))
+        {
+            return topExitTile;
+        }
+        else if (ExitTypesHelper.rightExit.Contains(tileType))
+        {
+            return rightExitTile;
+        }
+        else if (ExitTypesHelper.bottomExit.Contains(tileType))
+        {
+            return bottomExitTile;
+        }
+        else if (ExitTypesHelper.leftExit.Contains(tileType))
+        {
+            return leftExitTile;
+        }
+
+        return null;
     }
 
     private TileBase GetWallTile(string binaryTileType)
