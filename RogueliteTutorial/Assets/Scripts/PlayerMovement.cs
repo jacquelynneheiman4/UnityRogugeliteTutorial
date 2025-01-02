@@ -6,11 +6,16 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 5f;
 
     private Vector2 movementInput;
+    private Vector2 lastMoveDirection = Vector2.right;
     private Rigidbody2D rb2d;
+    private SpriteRenderer spriteRenderer;
+    private Animator animator;
 
     private void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -24,5 +29,13 @@ public class PlayerMovement : MonoBehaviour
 
         Vector2 movement = movementInput * speed * Time.fixedDeltaTime;
         rb2d.MovePosition(rb2d.position + movement);
+
+        if (movementInput.x != 0)
+        {
+            lastMoveDirection.x = movementInput.x;
+            spriteRenderer.flipX = movementInput.x < 0f;
+        }
+
+        animator.SetBool("isMoving", movementInput != Vector2.zero);
     }
 }
