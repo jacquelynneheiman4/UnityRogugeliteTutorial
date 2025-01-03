@@ -33,9 +33,19 @@ public class PlayerMovement : MonoBehaviour
         if (movementInput.x != 0)
         {
             lastMoveDirection.x = movementInput.x;
-            spriteRenderer.flipX = movementInput.x < 0f;
+            FlipX(movementInput.x < 0f);
         }
 
         animator.SetBool("isMoving", movementInput != Vector2.zero);
+    }
+
+    private void FlipX(bool flip)
+    {
+        float currentScale = Mathf.Abs(transform.localScale.x);
+
+        Vector3 scale = transform.localScale;
+        scale.x = flip ? -currentScale : currentScale;
+
+        transform.localScale = scale;
     }
 }

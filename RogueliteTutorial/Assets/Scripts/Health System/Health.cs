@@ -3,7 +3,6 @@ using UnityEngine;
 public class Health : MonoBehaviour, IHealth
 {
     [SerializeField] private float maxHealth = 100f;
-
     public float CurrentHealth { get; private set; }
 
     public float MaxHealth => maxHealth;
@@ -18,7 +17,7 @@ public class Health : MonoBehaviour, IHealth
         CurrentHealth += amount;
         CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
 
-        Debug.Log($"{gameObject.name} healed {amount}. Current health is: {CurrentHealth}");
+        Debug.Log($"{gameObject.name} healed {amount}. Current health is {CurrentHealth}.");
     }
 
     public void ResetHealth()
@@ -31,7 +30,7 @@ public class Health : MonoBehaviour, IHealth
         CurrentHealth -= amount;
         CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
 
-        Debug.Log($"{gameObject.name} took {amount} damage. Current health is: {CurrentHealth}");
+        Debug.Log($"{gameObject.name} took {amount} damage. Current health is {CurrentHealth}.");
 
         if (CurrentHealth <= 0)
         {

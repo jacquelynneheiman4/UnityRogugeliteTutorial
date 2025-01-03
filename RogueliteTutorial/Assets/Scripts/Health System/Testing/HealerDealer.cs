@@ -6,7 +6,7 @@ public class HealerDealer : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        IHealth health = other.GetComponent<IHealth>();
+        IHealth health = other.gameObject.GetComponent<IHealth>();
 
         if (health != null)
         {
