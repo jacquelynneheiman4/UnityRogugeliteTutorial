@@ -1060,13 +1060,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: weapons_animated_30
+      name: bow_right_1
       rect:
         serializedVersion: 2
         x: 28
-        y: 447
+        y: 445
         width: 15
-        height: 17
+        height: 20
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1082,13 +1082,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: weapons_animated_31
+      name: bow_right_4
       rect:
         serializedVersion: 2
-        x: 75
-        y: 447
+        x: 174
+        y: 445
         width: 15
-        height: 17
+        height: 20
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1104,12 +1104,12 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: weapons_animated_32
+      name: bow_right_5
       rect:
         serializedVersion: 2
-        x: 127
+        x: 221
         y: 445
-        width: 10
+        width: 15
         height: 20
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -1121,50 +1121,6 @@ TextureImporter:
       bones: []
       spriteID: df091dd9338375790800000000000000
       internalID: -7541497256666361603
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: weapons_animated_33
-      rect:
-        serializedVersion: 2
-        x: 175
-        y: 445
-        width: 10
-        height: 20
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a0b32fe8ba0d4cd10800000000000000
-      internalID: 2145068757791423242
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: weapons_animated_34
-      rect:
-        serializedVersion: 2
-        x: 225
-        y: 447
-        width: 8
-        height: 17
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6d52ef7a399b2ce00800000000000000
-      internalID: 1063616505842640342
       vertices: []
       indices: 
       edges: []
@@ -2709,6 +2665,50 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: bow_right_2
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 445
+        width: 15
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7fbe60cbe1f434cbcb6e1e2638d7d7d9
+      internalID: 1737460042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bow_right_3
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 445
+        width: 15
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1941c61ca4d6a45aba36effc14a3bec3
+      internalID: 1410525377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -2723,6 +2723,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
+      bow_right_1: -6612171187174977976
+      bow_right_2: 1047362786884787520
+      bow_right_3: 1410525377
+      bow_right_4: 2724290557161508762
+      bow_right_5: -7541497256666361603
       weapons_animated_0: 9166697368991561274
       weapons_animated_1: -7195432196877399091
       weapons_animated_10: 953616922899734602
@@ -2734,7 +2739,6 @@ TextureImporter:
       weapons_animated_11: -7778074728661327044
       weapons_animated_12: -2628355943858528398
       weapons_animated_13: 7809248645385494123
-      weapons_animated_14: 1047362786884787520
       weapons_animated_15: 6053007328476571920
       weapons_animated_16: -6360239995227067571
       weapons_animated_17: 8797266167073658460
@@ -2752,9 +2756,6 @@ TextureImporter:
       weapons_animated_28: 3439477985951605240
       weapons_animated_29: -4007668090372418287
       weapons_animated_3: -2450485638745080953
-      weapons_animated_30: -6612171187174977976
-      weapons_animated_31: 2724290557161508762
-      weapons_animated_32: -7541497256666361603
       weapons_animated_33: 2145068757791423242
       weapons_animated_34: 1063616505842640342
       weapons_animated_35: -3159232577639965076

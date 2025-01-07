@@ -4,11 +4,13 @@ public class MeleeAttack : IAttackType
 {
     private float attackRange;
     private Vector2 attackOffset;
+    private Animator attackAnimator;
 
-    public MeleeAttack(float range, Vector2 offset)
+    public MeleeAttack(float range, Vector2 offset, Animator animator)
     {
         attackRange = range;
         attackOffset = offset;
+        attackAnimator = animator;
     }
 
     public void ExecuteAttack(Transform attacker, int damage, LayerMask targetLayer, bool isFacingLeft)
@@ -22,6 +24,7 @@ public class MeleeAttack : IAttackType
             enemy.GetComponent<IHealth>()?.TakeDamage(damage);
         }
 
+        attackAnimator.SetTrigger("attack");
         DebugAttackPosition(attackPosition, isFacingLeft ? Vector2.left : Vector2.right, attackRange);
     }
 
