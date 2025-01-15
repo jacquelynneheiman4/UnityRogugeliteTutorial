@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : Movement
 {
     public float speed = 5f;
 
@@ -28,24 +28,19 @@ public class PlayerMovement : MonoBehaviour
         movementInput = movementInput.normalized;
 
         Vector2 movement = movementInput * speed * Time.fixedDeltaTime;
-        rb2d.MovePosition(rb2d.position + movement);
-
+        Move(movement);
+        
         if (movementInput.x != 0)
         {
             lastMoveDirection.x = movementInput.x;
-            FlipX(movementInput.x < 0f);
+            SetFacingDirection(movementInput.x < 0f);
         }
 
         animator.SetBool("isMoving", movementInput != Vector2.zero);
     }
 
-    private void FlipX(bool flip)
+    public override void Move(Vector3 direction)
     {
-        float currentScale = Mathf.Abs(transform.localScale.x);
-
-        Vector3 scale = transform.localScale;
-        scale.x = flip ? -currentScale : currentScale;
-
-        transform.localScale = scale;
+        rb2d.MovePosition(rb2d.position + (Vector2)direction);
     }
 }

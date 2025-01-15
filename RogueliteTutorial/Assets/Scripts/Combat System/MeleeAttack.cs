@@ -24,7 +24,7 @@ public class MeleeAttack : IAttackType
             enemy.GetComponent<IHealth>()?.TakeDamage(damage);
         }
 
-        attackAnimator.SetTrigger("attack");
+        attackAnimator?.SetTrigger("attack");
         DebugAttackPosition(attackPosition, isFacingLeft ? Vector2.left : Vector2.right, attackRange);
     }
 

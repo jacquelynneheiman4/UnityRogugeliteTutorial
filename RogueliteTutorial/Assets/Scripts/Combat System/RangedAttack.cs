@@ -20,6 +20,6 @@ public class RangedAttack : IAttackType
         GameObject projectile = GameObject.Instantiate(projectilePrefab, firePosition, Quaternion.identity);
         projectile.GetComponent<Projectile>()?.Launch(isFacingLeft ? Vector2.left : Vector2.right);
 
-        attackAnimator.SetTrigger("attack");
+        attackAnimator?.SetTrigger("attack");
     }
 }

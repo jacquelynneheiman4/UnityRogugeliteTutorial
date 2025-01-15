@@ -15,9 +15,4 @@ public class PlayerCombat : Combat
     {
         attackType.ExecuteAttack(transform, AttackDamage, AttackLayer, IsFacingLeft());
     }
-
-    private bool IsFacingLeft()
-    {
-        return transform.localScale.x < 0f;
-    }
 }

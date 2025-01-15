@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2454079078325094675}
   - component: {fileID: 4266051463261176679}
   m_Layer: 0
-  m_Name: Projectile
+  m_Name: Enemy Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -171,4 +171,4 @@ MonoBehaviour:
   damage: 10
   targetLayers:
     serializedVersion: 2
-    m_Bits: 320
+    m_Bits: 128
